@@ -1,4 +1,8 @@
-﻿using System;
+﻿using Assets.CodeBase.Infrastructure.Services;
+using Assets.CodeBase.Infrastructure.Services.AssetProvider;
+using Assets.CodeBase.Infrastructure.Services.Factory;
+using Assets.CodeBase.Logic;
+using System;
 using System.Collections.Generic;
 
 namespace Assets.CodeBase.Infrastructure.States
@@ -8,9 +12,13 @@ namespace Assets.CodeBase.Infrastructure.States
         private readonly Dictionary<Type, IExitableState> _states;
         private IExitableState _activeState;
 
-        public GameStateMachine(SceneLoader sceneLoader) {
+        public GameStateMachine(SceneLoader sceneLoader, LoadingCurtain loadingCurtain, AllServices services) {
             _states = new Dictionary<Type, IExitableState> {
-                [typeof(BootstrapState)] = new BootstrapState(this, sceneLoader),
+                [typeof(BootstrapState)] = new BootstrapState(this, sceneLoader, services),
+                [typeof(LoadLevelState)] = new LoadLevelState(
+                    this, sceneLoader, loadingCurtain,
+                    services.Single<IGameFactory>()),
+                [typeof(GameLoopState)] = new GameLoopState(this),
             };
         }
 

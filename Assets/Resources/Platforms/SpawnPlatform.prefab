@@ -41,6 +41,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6835441749489074147}
   - component: {fileID: 6375075859344032767}
+  - component: {fileID: 3320867501232695346}
   m_Layer: 0
   m_Name: SpawnPlatform
   m_TagString: Untagged
@@ -77,7 +78,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 6835441749489074146}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 856ce6c4c9324a54db619d9fd0681f4e, type: 3}
+  m_Script: {fileID: 11500000, guid: 8d85d1e6d1e27c3418eb23e8e7d2649f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _bounceForce: 50
@@ -86,7 +87,18 @@ MonoBehaviour:
   - {fileID: 4858970437085445480}
   - {fileID: 485925033860606239}
   - {fileID: 5685439385433785078}
-  _ball: {fileID: 884990432774882833, guid: a3725a13ef55d9b4b86a6f0c813c0966, type: 3}
+--- !u!114 &3320867501232695346
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6835441749489074146}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6ee15abbc6c00684fbb7a07bfdac6ad3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
   _spawnPoint: {fileID: 6695836515531427386}
 --- !u!1001 &2246320077477473421
 PrefabInstance:

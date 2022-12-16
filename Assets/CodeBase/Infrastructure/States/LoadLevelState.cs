@@ -1,4 +1,7 @@
-﻿using System;
+﻿using Assets.CodeBase.Ball;
+using Assets.CodeBase.Infrastructure.Services.Factory;
+using Assets.CodeBase.Logic;
+using UnityEngine;
 
 namespace Assets.CodeBase.Infrastructure.States
 {
@@ -6,22 +9,37 @@ namespace Assets.CodeBase.Infrastructure.States
     {
         private readonly GameStateMachine _stateMachine;
         private readonly SceneLoader _sceneLoader;
+        private readonly LoadingCurtain _loadingCurtain;
 
-        public LoadLevelState(GameStateMachine stateMachine, SceneLoader sceneLoader) {
+        private readonly IGameFactory _gameFactory;
+
+        public LoadLevelState(GameStateMachine stateMachine, SceneLoader sceneLoader, LoadingCurtain loadingCurtain,
+            IGameFactory gameFactory) {
             _stateMachine = stateMachine;
             _sceneLoader = sceneLoader;
+            _loadingCurtain = loadingCurtain;
+
+            _gameFactory = gameFactory;
         }
 
         public void Enter(string sceneName) {
+            _loadingCurtain.Show();
+
             _sceneLoader.Load(sceneName, OnLoaded);
         }
 
-        public void Exit() {
-
-        }
+        public void Exit() =>
+            _loadingCurtain.Hide();
 
         private void OnLoaded() {
+            InitTower();
+
             _stateMachine.Enter<GameLoopState>();
+        }
+
+        private void InitTower() {
+            GameObject ball = _gameFactory.CreateLevel();
+            Camera.main.GetComponent<BallObserver>().Initialize(ball.transform);
         }
     }
 }

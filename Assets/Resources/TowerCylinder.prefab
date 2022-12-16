@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 5341108631088015137}
   - component: {fileID: 288486145531940773}
   - component: {fileID: 2662717910140420815}
+  - component: {fileID: 7952193321709192170}
   m_Layer: 0
   m_Name: TowerCylinder
   m_TagString: Untagged
@@ -94,5 +95,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6b4ca255e8f033242bbaf634c0869a9b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &7952193321709192170
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5735881849559518679}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 199649a8bfb1faa4d87206bf6aad6be7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 

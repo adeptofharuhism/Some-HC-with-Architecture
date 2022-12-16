@@ -2,7 +2,7 @@
 
 namespace Assets.CodeBase.Platforms
 {
-    public class FinishPlatform: Platform
+    public class Finish: MonoBehaviour
     {
 
     }
