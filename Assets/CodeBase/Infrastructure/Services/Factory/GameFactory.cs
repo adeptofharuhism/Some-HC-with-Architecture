@@ -1,5 +1,7 @@
 ﻿using Assets.CodeBase.Infrastructure.Services.AssetProvider;
 using Assets.CodeBase.Infrastructure.Services.Input;
+using Assets.CodeBase.Infrastructure.States;
+using Assets.CodeBase.Logic;
 using Assets.CodeBase.Platforms;
 using Assets.CodeBase.Tower;
 using UnityEngine;
@@ -10,10 +12,12 @@ namespace Assets.CodeBase.Infrastructure.Services.Factory
     {
         private const int LevelCount = 10;
 
+        private readonly IGameStateMachine _stateMachine;
         private readonly IAssetProvider _assetProvider;
         private readonly IInputService _inputService;
 
-        public GameFactory(IAssetProvider assetProvider, IInputService inputService) {
+        public GameFactory(IGameStateMachine stateMachine, IAssetProvider assetProvider, IInputService inputService) {
+            _stateMachine = stateMachine;
             _assetProvider = assetProvider;
             _inputService = inputService;
         }
@@ -39,18 +43,18 @@ namespace Assets.CodeBase.Infrastructure.Services.Factory
             return ball;
         }
 
+        public void CreateEndText() =>
+            _assetProvider.Instantiate(AssetAddress.EndText).GetComponent<EndText>().Construct(_stateMachine);
+
         private GameObject CreateBall(BallSpawnPosition spawnPosition) {
             GameObject ballObject = _assetProvider.Instantiate(AssetAddress.Ball);
             ballObject.transform.position = spawnPosition.SpawnPoint;
             return ballObject;
         }
 
-        private BallSpawnPosition SetSpawnPlatform(GameObject towerCylinderObject, TowerScaler scaler) {
-            GameObject spawnPlatformObject = 
-                CreatePlatformOnLevel(AssetAddress.SpawnPlatform, towerCylinderObject.transform, scaler, LevelCount + 1);
-
-            return spawnPlatformObject.GetComponent<BallSpawnPosition>();
-        }
+        private BallSpawnPosition SetSpawnPlatform(GameObject towerCylinderObject, TowerScaler scaler) => 
+            CreatePlatformOnLevel(AssetAddress.SpawnPlatform, towerCylinderObject.transform, scaler, LevelCount + 1)
+                .GetComponent<BallSpawnPosition>();
 
         private void SetPlatforms(GameObject towerCylinderObject, TowerScaler scaler) {
             for (int i = 0; i < LevelCount; i++) {
@@ -58,9 +62,9 @@ namespace Assets.CodeBase.Infrastructure.Services.Factory
             }
         }
 
-        private void SetFinishPlatform(GameObject towerCylinderObject, TowerScaler scaler) {
-            CreatePlatformOnLevel(AssetAddress.FinishPlatform, towerCylinderObject.transform, scaler, 0);
-        }
+        private void SetFinishPlatform(GameObject towerCylinderObject, TowerScaler scaler) => 
+            CreatePlatformOnLevel(AssetAddress.FinishPlatform, towerCylinderObject.transform, scaler, 0)
+                .GetComponent<Finish>().Construct(this);
 
         private GameObject CreatePlatformOnLevel(string platformAddress, Transform parent, TowerScaler scaler, int level) {
             GameObject newPlatform = _assetProvider.Instantiate(platformAddress, parent);

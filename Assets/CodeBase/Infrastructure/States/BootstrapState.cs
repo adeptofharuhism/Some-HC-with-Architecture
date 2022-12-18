@@ -37,6 +37,7 @@ namespace Assets.CodeBase.Infrastructure.States
             _services.RegisterSingle(AddInputService());
             _services.RegisterSingle<IAssetProvider>(new AssetProvider());
             _services.RegisterSingle<IGameFactory>(new GameFactory(
+                _stateMachine,
                 _services.Single<IAssetProvider>(),
                 _services.Single<IInputService>()));
         }

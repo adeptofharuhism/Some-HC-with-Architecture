@@ -1,6 +1,5 @@
 ﻿using Assets.CodeBase.Ball;
 using Assets.CodeBase.Infrastructure.Services.Factory;
-using Assets.CodeBase.Infrastructure.Services.Input;
 using Assets.CodeBase.Logic;
 using UnityEngine;
 

@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Assets.CodeBase.Infrastructure.Services.AssetProvider
+﻿namespace Assets.CodeBase.Infrastructure.Services.AssetProvider
 {
     public class AssetAddress
     {
@@ -14,5 +8,7 @@ namespace Assets.CodeBase.Infrastructure.Services.AssetProvider
         public const string SpawnPlatform = "Platforms/SpawnPlatform";
         public const string Platform = "Platforms/Platform";
         public const string FinishPlatform = "Platforms/FinishPlatform";
+
+        public const string EndText = "UI/EndGameCanvas";
     }
 }

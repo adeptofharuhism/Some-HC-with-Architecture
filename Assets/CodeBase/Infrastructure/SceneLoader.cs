@@ -1,9 +1,5 @@
 ﻿using System;
 using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -20,11 +16,6 @@ namespace Assets.CodeBase.Infrastructure
             _coroutineRunner.StartCoroutine(LoadScene(name, onLoaded));
 
         private IEnumerator LoadScene(string name, Action onLoaded) {
-            if (SceneManager.GetActiveScene().name == name) {
-                onLoaded?.Invoke();
-                yield break;
-            }
-
             AsyncOperation waitNextScene = SceneManager.LoadSceneAsync(name);
 
             while (!waitNextScene.isDone)
