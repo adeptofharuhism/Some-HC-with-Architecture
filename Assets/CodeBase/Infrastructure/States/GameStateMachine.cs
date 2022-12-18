@@ -1,6 +1,6 @@
 ﻿using Assets.CodeBase.Infrastructure.Services;
-using Assets.CodeBase.Infrastructure.Services.AssetProvider;
 using Assets.CodeBase.Infrastructure.Services.Factory;
+using Assets.CodeBase.Infrastructure.Services.Input;
 using Assets.CodeBase.Logic;
 using System;
 using System.Collections.Generic;
@@ -18,7 +18,7 @@ namespace Assets.CodeBase.Infrastructure.States
                 [typeof(LoadLevelState)] = new LoadLevelState(
                     this, sceneLoader, loadingCurtain,
                     services.Single<IGameFactory>()),
-                [typeof(GameLoopState)] = new GameLoopState(this),
+                [typeof(GameLoopState)] = new GameLoopState(this, services.Single<IInputService>()),
             };
         }
 

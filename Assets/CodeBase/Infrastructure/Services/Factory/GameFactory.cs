@@ -1,4 +1,5 @@
 ﻿using Assets.CodeBase.Infrastructure.Services.AssetProvider;
+using Assets.CodeBase.Infrastructure.Services.Input;
 using Assets.CodeBase.Platforms;
 using Assets.CodeBase.Tower;
 using UnityEngine;
@@ -10,13 +11,18 @@ namespace Assets.CodeBase.Infrastructure.Services.Factory
         private const int LevelCount = 10;
 
         private readonly IAssetProvider _assetProvider;
+        private readonly IInputService _inputService;
 
-        public GameFactory(IAssetProvider assetProvider) {
+        public GameFactory(IAssetProvider assetProvider, IInputService inputService) {
             _assetProvider = assetProvider;
+            _inputService = inputService;
         }
 
         public GameObject CreateLevel() {
             GameObject towerObject = _assetProvider.Instantiate(AssetAddress.Tower, Vector3.zero);
+
+            TowerRotator rotator = towerObject.GetComponent<TowerRotator>();
+            rotator.Construct(_inputService);
 
             GameObject towerCylinderObject = _assetProvider.Instantiate(AssetAddress.TowerCylinder, towerObject.transform);
 

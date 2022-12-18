@@ -1,6 +1,7 @@
 ﻿using Assets.CodeBase.Infrastructure.Services;
 using Assets.CodeBase.Infrastructure.Services.AssetProvider;
 using Assets.CodeBase.Infrastructure.Services.Factory;
+using Assets.CodeBase.Infrastructure.Services.Input;
 
 namespace Assets.CodeBase.Infrastructure.States
 {
@@ -33,9 +34,18 @@ namespace Assets.CodeBase.Infrastructure.States
             _stateMachine.Enter<LoadLevelState, string>(Main);
 
         private void RegisterServices() {
+            _services.RegisterSingle(AddInputService());
             _services.RegisterSingle<IAssetProvider>(new AssetProvider());
             _services.RegisterSingle<IGameFactory>(new GameFactory(
-                _services.Single<IAssetProvider>()));
+                _services.Single<IAssetProvider>(),
+                _services.Single<IInputService>()));
+        }
+
+        private IInputService AddInputService() {
+            InputService inputService = new InputService();
+            inputService.Initialize();
+
+            return inputService;
         }
     }
 }

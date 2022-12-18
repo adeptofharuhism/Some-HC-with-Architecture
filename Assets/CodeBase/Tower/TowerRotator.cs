@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using Assets.CodeBase.Infrastructure.Services.Input;
+using System;
+using UnityEngine;
 
 namespace Assets.CodeBase.Tower
 {
@@ -9,31 +11,23 @@ namespace Assets.CodeBase.Tower
 
         private Rigidbody _rigidbody;
 
+        private IInputService _inputService;
+
+        public void Construct(IInputService inputService) {
+            _inputService = inputService;
+        }
+
         private void Start() {
             _rigidbody = GetComponent<Rigidbody>();
         }
 
         private void Update() {
-            if (Input.touchCount > 0) {
-                Touch touch = Input.GetTouch(0);
-
-                if (touch.phase == TouchPhase.Moved) {
-                    float torque = touch.deltaPosition.x * Time.deltaTime * _rotateSpeed;
-                    RotateOn(torque);
-                }
-            }
-
-            if (Input.GetKey(KeyCode.A)) {
-                RotateOn(-Time.deltaTime * _rotateSpeed);
-            }
-
-            if (Input.GetKey(KeyCode.D)) {
-                RotateOn(Time.deltaTime * _rotateSpeed);
-            }
+            if (_inputService.IsTouched)
+                RotateOn(_inputService.TouchDelta.x);
         }
 
         private void RotateOn(float amount) {
-            _rigidbody.AddTorque(Vector3.up * amount);
+            _rigidbody.AddTorque(Vector3.up * amount * _rotateSpeed);
         }
     }
 }
