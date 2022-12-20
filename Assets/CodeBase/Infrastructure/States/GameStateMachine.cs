@@ -1,6 +1,7 @@
 ﻿using Assets.CodeBase.Infrastructure.Services;
 using Assets.CodeBase.Infrastructure.Services.Factory;
 using Assets.CodeBase.Infrastructure.Services.Input;
+using Assets.CodeBase.Infrastructure.Services.PersistentProgress;
 using Assets.CodeBase.Logic;
 using System;
 using System.Collections.Generic;
@@ -15,6 +16,7 @@ namespace Assets.CodeBase.Infrastructure.States
         public GameStateMachine(SceneLoader sceneLoader, LoadingCurtain loadingCurtain, AllServices services) {
             _states = new Dictionary<Type, IExitableState> {
                 [typeof(BootstrapState)] = new BootstrapState(this, sceneLoader, services),
+                [typeof(LoadProgressState)] = new LoadProgressState(this, services.Single<IPersistentProgress>()),
                 [typeof(LoadLevelState)] = new LoadLevelState(
                     this, sceneLoader, loadingCurtain,
                     services.Single<IGameFactory>()),
