@@ -23,7 +23,7 @@ namespace Assets.CodeBase.Tower
 
         private void Update() {
             if (_inputService.IsTouched)
-                RotateOn(_inputService.TouchDelta.x);
+                RotateOn(-_inputService.TouchDelta.x);
         }
 
         private void RotateOn(float amount) {
