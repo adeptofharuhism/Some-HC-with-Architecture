@@ -6,7 +6,6 @@ namespace Assets.CodeBase.Infrastructure.States
     public class LoadProgressState : IState
     {
         private const int InitialLevel = 5;
-        private const string Main = "Main";
 
         private readonly GameStateMachine _stateMachine;
         private readonly IPersistentProgress _progress;
@@ -19,7 +18,7 @@ namespace Assets.CodeBase.Infrastructure.States
         public void Enter() {
             LoadProgressOrInitNew();
 
-            _stateMachine.Enter<LoadLevelState, string>(Main);
+            _stateMachine.Enter<LoadLevelState, string>(Constants.SceneNames.Main);
         }
 
         public void Exit() {

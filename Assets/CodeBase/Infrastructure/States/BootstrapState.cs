@@ -8,8 +8,6 @@ namespace Assets.CodeBase.Infrastructure.States
 {
     public class BootstrapState : IState
     {
-        private const string Initial = "Initial";
-
         private readonly IGameStateMachine _stateMachine;
         private readonly SceneLoader _sceneLoader;
         private readonly AllServices _services;
@@ -23,7 +21,7 @@ namespace Assets.CodeBase.Infrastructure.States
         }
 
         public void Enter() {
-            _sceneLoader.Load(Initial, onLoaded: EnterLoadLevel);
+            _sceneLoader.Load(Constants.SceneNames.Initial, onLoaded: EnterLoadLevel);
         }
 
         public void Exit() {

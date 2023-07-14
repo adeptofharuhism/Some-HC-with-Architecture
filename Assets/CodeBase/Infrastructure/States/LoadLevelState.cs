@@ -32,12 +32,12 @@ namespace Assets.CodeBase.Infrastructure.States
             _loadingCurtain.Hide();
 
         private void OnLoaded() {
-            InitTower();
+            InitLevel();
 
             _stateMachine.Enter<GameLoopState>();
         }
 
-        private void InitTower() {
+        private void InitLevel() {
             GameObject ball = _gameFactory.CreateLevel();
             Camera.main.GetComponent<BallObserver>().Initialize(ball.transform);
         }

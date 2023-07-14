@@ -8,8 +8,6 @@ namespace Assets.CodeBase.Logic
 {
     public class EndText : MonoBehaviour
     {
-        private const string Main = "Main";
-
         [Header("Animating Time")]
         [SerializeField] private float _appearanceTime = 1f;
         [SerializeField] private float _disappearanceTime = 1f;
@@ -41,7 +39,7 @@ namespace Assets.CodeBase.Logic
 
         private void Reload() {
             _tween.Kill();
-            _stateMachine.Enter<LoadLevelState, string>(Main);
+            _stateMachine.Enter<LoadLevelState, string>(Constants.SceneNames.Main);
         }
     }
 }
